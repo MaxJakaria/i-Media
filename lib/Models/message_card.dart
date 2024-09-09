@@ -45,7 +45,7 @@ class _MessageCardState extends State<MessageCard> {
     if (widget.message.read.isEmpty) {
       FirebaseFirestore.instance
           .collection(
-              'chats/${getChatId(widget.user.email, FirebaseAuth.instance.currentUser!.email!)}/messages/')
+          'chats/${getChatId(widget.user.email, FirebaseAuth.instance.currentUser!.email!)}/messages/')
           .doc(widget.message.sent)
           .update(
         {
@@ -75,9 +75,9 @@ class _MessageCardState extends State<MessageCard> {
               border: Border.all(color: Colors.green),
               borderRadius: widget.message.type == Type.text
                   ? BorderRadius.only(
-                      topLeft: Radius.circular(mq.width * 0.05),
-                      topRight: Radius.circular(mq.width * 0.05),
-                      bottomRight: Radius.circular(mq.width * 0.05))
+                  topLeft: Radius.circular(mq.width * 0.05),
+                  topRight: Radius.circular(mq.width * 0.05),
+                  bottomRight: Radius.circular(mq.width * 0.05))
                   : BorderRadius.circular(mq.width * 0.043),
             ),
 
@@ -85,26 +85,26 @@ class _MessageCardState extends State<MessageCard> {
 
             child: widget.message.type == Type.text
                 ?
-                //Show Text
-                Text(
-                    widget.message.msg,
-                    style: GoogleFonts.acme(fontSize: mq.width * 0.045),
-                  )
+            //Show Text
+            Text(
+              widget.message.msg,
+              style: GoogleFonts.acme(fontSize: mq.width * 0.045),
+            )
                 :
-                //Show image
-                ClipRRect(
-                    borderRadius: BorderRadius.circular(mq.width * 0.04),
-                    child: CachedNetworkImage(
-                      imageUrl: widget.message.msg,
-                      placeholder: (context, url) =>
-                          const CircularProgressIndicator(),
-                      fit: BoxFit.cover,
-                      errorWidget: (context, url, error) => const Icon(
-                        Icons.image,
-                        size: 70,
-                      ),
-                    ),
-                  ),
+            //Show image
+            ClipRRect(
+              borderRadius: BorderRadius.circular(mq.width * 0.04),
+              child: CachedNetworkImage(
+                imageUrl: widget.message.msg,
+                placeholder: (context, url) =>
+                const CircularProgressIndicator(),
+                fit: BoxFit.cover,
+                errorWidget: (context, url, error) => const Icon(
+                  Icons.image,
+                  size: 70,
+                ),
+              ),
+            ),
           ),
         ),
 
@@ -112,7 +112,7 @@ class _MessageCardState extends State<MessageCard> {
 
         Padding(
           padding:
-              EdgeInsets.only(right: mq.width * 0.04, top: mq.width * 0.04),
+          EdgeInsets.only(right: mq.width * 0.04, top: mq.width * 0.04),
           child: Text(
             // formattedTime,
             MyDateUtil.getFormattedTime(
@@ -179,35 +179,35 @@ class _MessageCardState extends State<MessageCard> {
               border: Border.all(color: Colors.blueGrey),
               borderRadius: widget.message.type == Type.text
                   ? BorderRadius.only(
-                      topLeft: Radius.circular(mq.width * 0.05),
-                      topRight: Radius.circular(mq.width * 0.05),
-                      bottomLeft: Radius.circular(mq.width * 0.05))
+                  topLeft: Radius.circular(mq.width * 0.05),
+                  topRight: Radius.circular(mq.width * 0.05),
+                  bottomLeft: Radius.circular(mq.width * 0.05))
                   : BorderRadius.circular(mq.width * 0.043),
             ),
 
             //__________________________________________________________________ Text
             child: widget.message.type == Type.text
                 ?
-                //Show Text
-                Text(
-                    widget.message.msg,
-                    style: GoogleFonts.acme(fontSize: mq.width * 0.045),
-                  )
+            //Show Text
+            Text(
+              widget.message.msg,
+              style: GoogleFonts.acme(fontSize: mq.width * 0.045),
+            )
                 :
-                //Show image
-                ClipRRect(
-                    borderRadius: BorderRadius.circular(mq.width * 0.04),
-                    child: CachedNetworkImage(
-                      imageUrl: widget.message.msg,
-                      placeholder: (context, url) =>
-                          const CircularProgressIndicator(),
-                      fit: BoxFit.cover,
-                      errorWidget: (context, url, error) => const Icon(
-                        Icons.image,
-                        size: 70,
-                      ),
-                    ),
-                  ),
+            //Show image
+            ClipRRect(
+              borderRadius: BorderRadius.circular(mq.width * 0.04),
+              child: CachedNetworkImage(
+                imageUrl: widget.message.msg,
+                placeholder: (context, url) =>
+                const CircularProgressIndicator(),
+                fit: BoxFit.cover,
+                errorWidget: (context, url, error) => const Icon(
+                  Icons.image,
+                  size: 70,
+                ),
+              ),
+            ),
           ),
         ),
       ],
@@ -239,58 +239,58 @@ class _MessageCardState extends State<MessageCard> {
             widget.message.type == Type.text
                 ?
 
-                // _____________________________________________________________________________Copy option
-                _OptionItem(
-                    icon: const Icon(
-                      Icons.copy_all_rounded,
-                      color: Colors.blue,
-                      size: 26,
-                    ),
-                    name: 'Copy Text',
-                    onTap: () async {
-                      await Clipboard.setData(
-                              ClipboardData(text: widget.message.msg))
-                          .then((value) {
-                        //For Hiding Bottom Sheet
-                        Navigator.pop(context);
+            // _____________________________________________________________________________Copy option
+            _OptionItem(
+              icon: const Icon(
+                Icons.copy_all_rounded,
+                color: Colors.blue,
+                size: 26,
+              ),
+              name: 'Copy Text',
+              onTap: () async {
+                await Clipboard.setData(
+                    ClipboardData(text: widget.message.msg))
+                    .then((value) {
+                  //For Hiding Bottom Sheet
+                  Navigator.pop(context);
 
-                        Dialogs.showSnackbar(context, 'Text Copied!');
-                      });
-                    },
-                  )
+                  Dialogs.showSnackbar(context, 'Text Copied!');
+                });
+              },
+            )
                 :
-                //_________________________________________________________________________Save option
-                _OptionItem(
-                    icon: const Icon(
-                      Icons.cloud_download_rounded,
-                      color: Colors.blue,
-                      size: 26,
-                    ),
-                    name: 'Save',
-                    onTap: () async {
-                      try {
-                        //For Hiding Bottom Sheet
-                        Navigator.pop(context);
+            //_________________________________________________________________________Save option
+            _OptionItem(
+              icon: const Icon(
+                Icons.cloud_download_rounded,
+                color: Colors.blue,
+                size: 26,
+              ),
+              name: 'Save',
+              onTap: () async {
+                try {
+                  //For Hiding Bottom Sheet
+                  Navigator.pop(context);
 
-                        // Download the image
-                        var response =
-                            await http.get(Uri.parse(widget.message.msg));
+                  // Download the image
+                  var response =
+                  await http.get(Uri.parse(widget.message.msg));
 
-                        if (response.statusCode == 200) {
-                          // Save the image to the gallery
-                          await ImageGallerySaver.saveImage(
-                              Uint8List.fromList(response.bodyBytes));
+                  if (response.statusCode == 200) {
+                    // Save the image to the gallery
+                    await ImageGallerySaver.saveImage(
+                        Uint8List.fromList(response.bodyBytes));
 
-                          Dialogs.showSnackbar(context, 'Saved image!');
-                        } else {
-                          print(
-                              "Error downloading image: ${response.statusCode}");
-                        }
-                      } catch (e) {
-                        print("Error saving image: $e");
-                      }
-                    },
-                  ),
+                    Dialogs.showSnackbar(context, 'Saved image!');
+                  } else {
+                    print(
+                        "Error downloading image: ${response.statusCode}");
+                  }
+                } catch (e) {
+                  print("Error saving image: $e");
+                }
+              },
+            ),
 
             //Divider
             if (isMe)
@@ -328,7 +328,7 @@ class _MessageCardState extends State<MessageCard> {
                 onTap: () async {
                   await API
                       .deleteMessage(widget.message, widget.user.email,
-                          FirebaseAuth.instance.currentUser!.email!)
+                      FirebaseAuth.instance.currentUser!.email!)
                       .then((value) {
                     //For hiding bottom sheet
                     Navigator.pop(context);
@@ -351,7 +351,7 @@ class _MessageCardState extends State<MessageCard> {
                 size: 26,
               ),
               name:
-                  'Sent At: ${MyDateUtil.getLastMessageTime(context: context, time: widget.message.sent)}',
+              'Sent At: ${MyDateUtil.getLastMessageTime(context: context, time: widget.message.sent)}',
               onTap: () {},
             ),
 
@@ -456,15 +456,15 @@ class _OptionItem extends StatelessWidget {
       onTap: () => onTap(),
       child: Padding(
         padding:
-            EdgeInsets.only(left: mq.width * 0.05, bottom: mq.height * 0.015),
+        EdgeInsets.only(left: mq.width * 0.05, bottom: mq.height * 0.015),
         child: Row(
           children: [
             icon,
             Flexible(
                 child: Text(
-              '   $name',
-              style: const TextStyle(color: Colors.white70),
-            ))
+                  '   $name',
+                  style: const TextStyle(color: Colors.white70),
+                ))
           ],
         ),
       ),

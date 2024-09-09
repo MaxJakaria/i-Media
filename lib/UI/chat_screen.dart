@@ -6,6 +6,7 @@ import 'package:firebase/Models/chat_user.dart';
 import 'package:firebase/Models/message.dart';
 import 'package:firebase/Models/message_card.dart';
 import 'package:firebase/UI/uihelper.dart';
+import 'package:firebase/UI/view_profile_screen.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:firebase_storage/firebase_storage.dart';
 import 'package:flutter/material.dart';
@@ -140,7 +141,9 @@ class _ChatScreenState extends State<ChatScreen> {
         return Padding(
           padding: EdgeInsets.only(top: mq.height * 0.05),
           child: InkWell(
-            onTap: () {},
+            onTap: () {
+              Navigator.push(context, MaterialPageRoute(builder: (_) => ViewProfileScreen(user: widget.user)));
+            },
             child: Row(
               children: [
                 //Back button

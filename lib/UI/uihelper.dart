@@ -8,6 +8,8 @@ import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
 
 class UIhelper {
+
+  // Custom Text field
   static customTextField(TextEditingController controller, String text,
       IconData iconData, bool toHide, BuildContext context) {
     final width = MediaQuery.of(context).size.width;
@@ -31,6 +33,7 @@ class UIhelper {
     );
   }
 
+  // Custom Button
   static customButton(VoidCallback voidCallback, String text, Color buttonColor,
       BuildContext context) {
     final width = MediaQuery.of(context).size.width;
@@ -57,6 +60,7 @@ class UIhelper {
     );
   }
 
+  // Custom AlertBox
   static customAlertBox(BuildContext context, String text) {
     final width = MediaQuery.of(context).size.width;
     return showDialog(
@@ -216,8 +220,10 @@ class Dialogs {
   }
 
   static void showProgressBar(BuildContext context) {
+    // ignore: unused_label
     context:
     context;
+    // ignore: unused_label
     builder:
     (_) => const Center(
           child: CircularProgressIndicator(),
@@ -299,7 +305,6 @@ class API {
 
   // For getting id's known users from firestore database
   static Stream<QuerySnapshot<Map<String, dynamic>>> getMyUserId() {
-
     // For set my id in my_user section
     FirebaseFirestore.instance
         .collection('user')
@@ -315,12 +320,12 @@ class API {
         .snapshots();
   }
 
-
   static Stream<QuerySnapshot<Map<String, dynamic>>> getAllUsers(
       List<String> userIds) {
     if (userIds.isEmpty) {
       // Handle empty list case, e.g., return a stream with no results or display a message
-      return const Stream.empty(); // Return an empty stream if no users to query
+      return const Stream
+          .empty(); // Return an empty stream if no users to query
     }
 
     // Proceed with the Firestore query if userIds is not empty
@@ -329,5 +334,4 @@ class API {
         .where('email', whereIn: userIds)
         .snapshots();
   }
-
 }

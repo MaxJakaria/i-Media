@@ -23,19 +23,19 @@ class _LoginPageState extends State<LoginPage> {
     if (email == "" || password == "") {
       return UIhelper.customAlertBox(context, "Enter required fields !");
     } else {
+      // ignore: unused_local_variable
       UserCredential? userCredential;
       try {
         userCredential = await FirebaseAuth.instance
             .signInWithEmailAndPassword(email: email, password: password)
             .then(
               (value) => Navigator.pushReplacement(
-            context,
-            MaterialPageRoute(
-              builder: (context) => const MyHomePage(),
-            ),
-          ),
-        );
-
+                context,
+                MaterialPageRoute(
+                  builder: (context) => const MyHomePage(),
+                ),
+              ),
+            );
       } on FirebaseException {
         return UIhelper.customAlertBox(context, 'Wrong Information !');
       }
@@ -79,9 +79,12 @@ class _LoginPageState extends State<LoginPage> {
 
                 UIhelper.customTextField(
                     emailController, "Email", Icons.email, false, context),
-                CustomPasswordField(controller: passwordController, text: 'Password', iconData: Icons.lock_person_rounded),
+                CustomPasswordField(
+                    controller: passwordController,
+                    text: 'Password',
+                    iconData: Icons.lock_person_rounded),
                 const SizedBox(height: 30),
-            
+
                 //>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>> LOGIN BUTTON
                 UIhelper.customButton(() {
                   LogIn(
@@ -89,7 +92,7 @@ class _LoginPageState extends State<LoginPage> {
                     passwordController.text.toString(),
                   );
                 }, "Login", Colors.lightGreen, context),
-            
+
                 const SizedBox(
                   height: 5,
                 ),
@@ -108,7 +111,7 @@ class _LoginPageState extends State<LoginPage> {
                         fontSize: width * 0.04, color: Colors.blueAccent),
                   ),
                 ),
-            
+
                 const SizedBox(height: 20),
                 Row(
                   mainAxisAlignment: MainAxisAlignment.center,
