@@ -8,7 +8,6 @@ import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
 
 class UIhelper {
-
   // Custom Text field
   static customTextField(TextEditingController controller, String text,
       IconData iconData, bool toHide, BuildContext context) {
@@ -236,14 +235,29 @@ class API {
   //For storing self information
   static late ChatUser me;
 
+  //For getting current user info
+  static Future<void> getSelfInfo() async {
+    await FirebaseFirestore.instance
+        .collection('user')
+        .doc(FirebaseAuth.instance.currentUser!.email)
+        .get()
+        .then((user) async {
+      me = ChatUser.fromJson(user.data()!);
+      getFirebaseMessaginggToken();
+    });
+  }
+
   //For accessing firebase messaging (Push Notification)
-  static FirebaseMessaging fmessaging = FirebaseMessaging.instance;
+  static FirebaseMessaging fMessaging = FirebaseMessaging.instance;
 
   //For getting firebase messaging token
-  static Future<void> getFirebaseMessageingToken() async {
-    await fmessaging.requestPermission();
-    await fmessaging.getToken().then((t) {
-      if (t != null) {}
+  static Future<void> getFirebaseMessaginggToken() async {
+    await fMessaging.requestPermission();
+    await fMessaging.getToken().then((t) {
+      if (t != null) {
+        me.pushToken = t;
+        print('push_token: $t');
+      }
     });
   }
 

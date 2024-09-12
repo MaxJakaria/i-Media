@@ -25,6 +25,7 @@ class _MyHomePageState extends State<MyHomePage> with WidgetsBindingObserver {
   //_____________________________________________For online offline
   @override
   void initState() {
+    // API.getSelfInfo();
     super.initState();
     WidgetsBinding.instance.addObserver(this);
     updateActiveStatus(
@@ -57,6 +58,7 @@ class _MyHomePageState extends State<MyHomePage> with WidgetsBindingObserver {
         .update({
       'is_online': onlineStatus,
       'last_active': DateTime.now().millisecondsSinceEpoch.toString(),
+      'push_token' : API.me.pushToken,
     }).then((value) {
       print('User online status updated: $isOnline');
     }).catchError((error) {
